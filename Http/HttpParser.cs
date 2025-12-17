@@ -13,7 +13,7 @@ public static class HttpParser
             
             // body length is defined by content-length
             headers.TryGetValue("Content-Length", out var contentLengthString);
-            var contentLength = int.Parse(contentLengthString);
+            int.TryParse(contentLengthString, out var contentLength);
             var body = ParseBody(httpMessage, indexAfterHeaders, contentLength);
             
             return (startLine, headers, body);

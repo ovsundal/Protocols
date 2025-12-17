@@ -19,16 +19,25 @@ class Program
         "Content-Length: 11\r\n" +
         "Connection: close\r\n" +
         "\r\n" + // end headers
-        "Hello World" //body
+        "Hello World" + //body
+        "\r\n"
     );
+    
+    private static readonly byte[] PostHttpRequestInByteArray = Encoding.ASCII.GetBytes(
+        "POST /orders HTTP/1.1\r\n" +                 // request-line: method, path, version
+        "Host: example.com\r\n" +                     // required in HTTP/1.1
+        "Content-Type: text/plain; charset=utf-8\r\n" + // body is JSON
+        "Content-Length: 11\r\n" +                    // length of the JSON body in bytes
+        "Connection: close\r\n" +                     // do not keep the TCP connection alive
+        "\r\n" +                                      // end of headers
+        "Hello World\r\n"              // body (27 bytes with this exact spacing)
+    );
+
 
     static void Main(string[] args)
     {
-        var (startLine, headers, body) = HttpParser.ParseHttpMessage(GetHttpResponseInByteArray);
+        var (startLine, headers, body) = HttpParser.ParseHttpMessage(PostHttpRequestInByteArray);
 
         Console.WriteLine("test");
-        Console.WriteLine(startLine);
-        Console.WriteLine(headers);
-        Console.WriteLine(body);
     }
 }
