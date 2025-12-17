@@ -26,6 +26,7 @@ class Program
     {
         var (startLine, headers, body) = HttpParser.ParseHttpMessage(GetHttpResponseInByteArray);
 
+        Console.WriteLine("test");
         Console.WriteLine(startLine);
         Console.WriteLine(headers);
         Console.WriteLine(body);
